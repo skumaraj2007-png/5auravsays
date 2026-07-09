@@ -21,6 +21,7 @@ import {
   Minus
 } from 'lucide-react';
 import { Poem } from '../types';
+import { THEME_IMAGES } from '../data';
 
 interface PoemReaderProps {
   poem: Poem | null;
@@ -102,6 +103,8 @@ export const PoemReader: React.FC<PoemReaderProps> = ({ poem, onDeletePoem }) =>
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const coverUrl = poem.imageUrl || THEME_IMAGES[poem.theme] || THEME_IMAGES['Solitude'];
 
   return (
     <AnimatePresence mode="wait">
@@ -239,7 +242,30 @@ export const PoemReader: React.FC<PoemReaderProps> = ({ poem, onDeletePoem }) =>
         </div>
 
         {/* Poem Core Content Page */}
-        <div className="flex-1 flex flex-col justify-center py-6 overflow-y-auto max-w-2xl mx-auto w-full select-text" id="poetry-scrollable-sheet">
+        <div className="flex-1 flex flex-col justify-start py-6 overflow-y-auto max-w-2xl mx-auto w-full select-text" id="poetry-scrollable-sheet">
+          {coverUrl && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="w-full h-44 md:h-64 rounded-2xl overflow-hidden mb-8 relative shadow-xs group border border-stone-200/40 dark:border-stone-850/40 shrink-0" 
+              id="poem-cover-frame"
+            >
+              <img
+                src={coverUrl}
+                alt={poem.title}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-103"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/45 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-3.5 left-4 flex items-center gap-1.5">
+                <span className="text-[9px] font-mono tracking-widest uppercase bg-stone-950/60 text-stone-200 px-2.5 py-1 rounded-full backdrop-blur-md">
+                  {poem.theme} Visualscape
+                </span>
+              </div>
+            </motion.div>
+          )}
+
           <div className="text-center mb-8" id="poem-title-section">
             <h1 className="font-serif text-3xl md:text-4xl font-light tracking-wide text-stone-900 dark:text-stone-50 transition-colors">
               {poem.title}

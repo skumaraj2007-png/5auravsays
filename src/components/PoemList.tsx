@@ -7,7 +7,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Feather, PenTool, CheckCircle, BookOpen, User, Archive } from 'lucide-react';
 import { Poem } from '../types';
-import { THEME_MOODS } from '../data';
+import { THEME_MOODS, THEME_IMAGES } from '../data';
 
 interface PoemListProps {
   poems: Poem[];
@@ -143,42 +143,60 @@ export const PoemList: React.FC<PoemListProps> = ({
           >
             {filteredPoems.map((poem) => {
               const isSelected = selectedPoemId === poem.id && !isWritingMode;
+              const thumbUrl = poem.imageUrl || THEME_IMAGES[poem.theme] || THEME_IMAGES['Solitude'];
               return (
                 <motion.div
                   key={poem.id}
                   variants={itemVariants}
                   onClick={() => onSelectPoem(poem.id)}
                   id={`poem-item-${poem.id}`}
-                  className={`p-4 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
+                  className={`p-3.5 rounded-xl border text-left transition-all duration-300 cursor-pointer ${
                     isSelected
                       ? 'bg-stone-50 dark:bg-stone-900 border-stone-300 dark:border-stone-700 shadow-sm'
-                      : 'bg-white/40 dark:bg-stone-950/20 border-stone-150 dark:border-stone-900/60 hover:bg-stone-50/50 dark:hover:bg-stone-900/30 hover:border-stone-250 dark:hover:border-stone-800'
+                      : 'bg-white/45 dark:bg-stone-950/25 border-stone-150 dark:border-stone-900/40 hover:bg-stone-50/50 dark:hover:bg-stone-900/35 hover:border-stone-250 dark:hover:border-stone-800'
                   }`}
                 >
-                  <div className="flex items-start justify-between">
-                    <h3 className="font-serif text-lg font-medium text-stone-800 dark:text-stone-200 leading-tight">
-                      {poem.title}
-                    </h3>
-                    <span className="text-[10px] font-mono tracking-widest uppercase bg-stone-100 dark:bg-stone-900 px-2 py-0.5 rounded-md text-stone-500 dark:text-stone-400">
-                      {poem.theme}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center gap-1.5 mt-1.5">
-                    <User size={11} className="text-stone-400" />
-                    <p className="text-xs font-sans text-stone-500 dark:text-stone-400">
-                      {poem.author}
-                    </p>
-                    {poem.isUserCreated && (
-                      <span className="flex items-center gap-0.5 text-[9px] font-mono text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-1.5 py-0.5 rounded ml-auto">
-                        <PenTool size={9} />
-                        Original
-                      </span>
+                  <div className="flex gap-3.5 items-center">
+                    {/* Visual Thumbnail */}
+                    {thumbUrl && (
+                      <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 border border-stone-200/50 dark:border-stone-850/40 bg-stone-100 dark:bg-stone-900" id={`poem-thumb-${poem.id}`}>
+                        <img
+                          src={thumbUrl}
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                      </div>
                     )}
+                    
+                    {/* Description Details */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-1.5">
+                        <h3 className="font-serif text-base font-medium text-stone-800 dark:text-stone-200 leading-tight truncate">
+                          {poem.title}
+                        </h3>
+                        <span className="text-[9px] font-mono tracking-widest uppercase bg-stone-100 dark:bg-stone-900/80 px-2 py-0.5 rounded text-stone-500 dark:text-stone-400 shrink-0">
+                          {poem.theme}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <User size={10} className="text-stone-400 shrink-0" />
+                        <p className="text-xs font-sans text-stone-500 dark:text-stone-400 truncate">
+                          {poem.author}
+                        </p>
+                        {poem.isUserCreated && (
+                          <span className="flex items-center gap-0.5 text-[8px] font-mono text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-1 rounded-sm shrink-0 ml-auto">
+                            <PenTool size={8} />
+                            Original
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
-                  <p className="text-stone-400 dark:text-stone-500 text-xs italic line-clamp-2 mt-3 font-serif whitespace-pre-line border-t border-stone-100 dark:border-stone-900/50 pt-2 leading-relaxed">
-                    {poem.content.substring(0, 110)}...
+                  <p className="text-stone-400 dark:text-stone-500 text-xs italic line-clamp-2 mt-2.5 font-serif whitespace-pre-line border-t border-stone-100 dark:border-stone-900/30 pt-2 leading-relaxed">
+                    {poem.content.substring(0, 95)}...
                   </p>
                 </motion.div>
               );

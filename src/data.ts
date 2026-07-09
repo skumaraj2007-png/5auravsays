@@ -11,6 +11,7 @@ export const CURATED_POEMS: Poem[] = [
     title: 'A Light exists in Spring',
     author: 'Emily Dickinson',
     theme: 'Nature',
+    imageUrl: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1200&q=80',
     content: `A Light exists in Spring
 Not present on the Year
 At any other period —
@@ -42,6 +43,7 @@ Upon a Sacrament.`,
     title: 'A Dream Within a Dream',
     author: 'Edgar Allan Poe',
     theme: 'Midnight',
+    imageUrl: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80',
     content: `Take this kiss upon the brow!
 And, in parting from you now,
 Thus much let me avow —
@@ -74,6 +76,7 @@ But a dream within a dream?`,
     title: 'He Wishes for the Cloths of Heaven',
     author: 'William Butler Yeats',
     theme: 'Love',
+    imageUrl: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80',
     content: `Had I the heavens’ embroidered cloths,
 Enwrought with golden and silver light,
 The blue and the dim and the dark cloths
@@ -89,6 +92,7 @@ Tread softly because you tread on my dreams.`,
     title: 'Bright Star',
     author: 'John Keats',
     theme: 'Cosmos',
+    imageUrl: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1200&q=80',
     content: `Bright star, would I were stedfast as thou art —
 Not in lone splendour hung aloft the night
 And watching, with eternal lids apart,
@@ -110,6 +114,7 @@ And so live ever — or else swoon to death.`,
     title: 'She Walks in Beauty',
     author: 'Lord Byron',
     theme: 'Love',
+    imageUrl: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1200&q=80',
     content: `She walks in beauty, like the night
 Of cloudless climes and starry skies;
 And all that’s best of dark and bright
@@ -120,7 +125,7 @@ Which heaven to gaudy day denies.
 One shade the more, one ray the less,
 Had half impaired the nameless grace
 Which waves in every raven tress,
-Or softly lightens o’er her face;
+Or softly lightens o’er face;
 Where thoughts serenely sweet express,
 How pure, how dear their dwelling-place.
 
@@ -137,6 +142,7 @@ A heart whose love is innocent!`,
     title: 'I Wandered Lonely as a Cloud',
     author: 'William Wordsworth',
     theme: 'Solitude',
+    imageUrl: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80',
     content: `I wandered lonely as a cloud
 That floats on high o'er vales and hills,
 When all at once I saw a crowd,
@@ -171,6 +177,7 @@ And dances with the daffodils.`,
     title: 'The Silent Dialogue',
     author: 'L. M. Sterling',
     theme: 'Solitude',
+    imageUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80',
     content: `We build houses out of loud declarations,
 But the soul resides in the comma,
 In the pause between two breaths,
@@ -193,6 +200,7 @@ To translate silence into a song.`,
     title: 'Anatomy of a Star',
     author: 'Alistair Vance',
     theme: 'Cosmos',
+    imageUrl: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80',
     content: `We are kept in place by forces
 We cannot see, but feel in our bones —
 A gravity of memories,
@@ -220,3 +228,11 @@ export const THEME_MOODS = [
   { name: 'Midnight', emoji: '🌙' },
   { name: 'My Works', emoji: '🖋️' }
 ];
+
+export const THEME_IMAGES: Record<string, string> = {
+  Nature: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1200&q=80',
+  Midnight: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1200&q=80',
+  Love: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80',
+  Cosmos: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=1200&q=80',
+  Solitude: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80'
+};

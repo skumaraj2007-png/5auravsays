@@ -12,6 +12,7 @@ export interface Poem {
   createdAt?: string;
   isUserCreated?: boolean;
   alignment?: 'left' | 'center';
+  imageUrl?: string;
 }
 
 export type ThemeMode = 'light' | 'dark';
