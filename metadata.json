@@ -1,0 +1,6 @@
+{
+  "name": "Poetry App",
+  "description": "An elegant, minimalist poetry reading and writing website featuring a curated classic collection, custom writing pad, ambient soundscapes, and light/dark theme options.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
