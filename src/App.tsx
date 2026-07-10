@@ -11,6 +11,7 @@ import { CURATED_POEMS } from './data';
 import { PoemList } from './components/PoemList';
 import { PoemReader } from './components/PoemReader';
 import { PoemWriter } from './components/PoemWriter';
+import { MagnetBoard } from './components/MagnetBoard';
 import { startAmbientDrone, stopAmbientDrone, playTypewriterClick } from './utils/audio';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
   const [isWritingMode, setIsWritingMode] = useState(false);
   const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
   const [isAmbientPlaying, setIsAmbientPlaying] = useState(false);
+  const [isMagnetMode, setIsMagnetMode] = useState(false);
   const [mobileView, setMobileView] = useState<'list' | 'detail' | 'write'>('list');
 
   // Load user poems & theme preferences on mount
@@ -88,6 +90,7 @@ export default function App() {
   const handleSelectPoem = (id: string) => {
     setSelectedPoemId(id);
     setIsWritingMode(false);
+    setIsMagnetMode(false);
     setMobileView('detail');
   };
 
@@ -147,6 +150,26 @@ export default function App() {
 
         {/* Global Toolbar */}
         <div className="flex items-center gap-3" id="global-control-toolbar">
+          {/* Magnet Board Toggle */}
+          <button
+            onClick={() => {
+              setIsMagnetMode(!isMagnetMode);
+              setIsWritingMode(false);
+              setMobileView('detail');
+              playTypewriterClick();
+            }}
+            id="global-magnet-toggle"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono border transition-all cursor-pointer ${
+              isMagnetMode
+                ? 'bg-rose-50 border-rose-300 text-rose-800 dark:bg-rose-950/20 dark:border-rose-900 dark:text-rose-300 font-bold'
+                : 'bg-transparent border-stone-200 dark:border-stone-850 text-stone-500 hover:text-stone-800 dark:hover:text-stone-200'
+            }`}
+            title="Open Magnetic Refrigerator Poetry sandbox"
+          >
+            <span>🧲</span>
+            <span className="hidden sm:inline">{isMagnetMode ? 'Playing Fridge' : 'Fridge Magnets'}</span>
+          </button>
+
           {/* Ambient Audio Synth Switcher */}
           <button
             onClick={handleAmbientToggle}
@@ -214,6 +237,7 @@ export default function App() {
             isWritingMode={isWritingMode}
             onWriteClick={() => {
               setIsWritingMode(true);
+              setIsMagnetMode(false);
               setMobileView('write');
             }}
           />
@@ -241,7 +265,16 @@ export default function App() {
           )}
 
           <AnimatePresence mode="wait">
-            {isWritingMode ? (
+            {isMagnetMode ? (
+              <MagnetBoard
+                key="magnet-board"
+                onSavePoem={(p) => {
+                  handleSaveNewPoem(p);
+                  setIsMagnetMode(false);
+                }}
+                onClose={() => setIsMagnetMode(false)}
+              />
+            ) : isWritingMode ? (
               <PoemWriter
                 key="poetry-writer"
                 onSavePoem={handleSaveNewPoem}
